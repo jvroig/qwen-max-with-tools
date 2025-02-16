@@ -4,6 +4,9 @@
 
 This repository, **qwen-max-with-tools**, provides a web-based chat interface and Python API backend that equips the Qwen-Max language model with powerful filesystem manipulation tools. These tools allow users to interact with their local or remote filesystem through natural language queries or direct API calls.
 
+**Important Note**: This is an **educational implementation** designed to demonstrate how tool-calling works with Large Language Models (LLMs). It is **not intended for production use**. Please exercise caution when using this code, especially when interacting with sensitive filesystems. Always ensure proper security measures are in place if deploying similar solutions in real-world scenarios.
+
+
 ### Features
 
 - **Get Current Working Directory**: Retrieve the current working directory.
