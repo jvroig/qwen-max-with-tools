@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify, Response
 from flask_cors import CORS
-import openai
+from openai import OpenAI
 import os
 import json
 # import yaml
@@ -15,12 +15,10 @@ from dotenv import load_dotenv
 app = Flask(__name__)
 CORS(app)  # Add this line to enable CORS for all routes
 
-# Load environment variables from .env file
+# Load API Key
 load_dotenv()
-
-#Model Studio endpoint
-dashscope.base_http_api_url = 'https://dashscope-intl.aliyuncs.com/api/v1'
-dashscope.api_key = os.getenv('DASHSCOPE_API_KEY')
+api_key = os.getenv('DASHSCOPE_API_KEY')
+base_url = 'https://dashscope-intl.aliyuncs.com/compatible-mode/v1'
 
 @app.route('/api/chat', methods=['POST'])
 def query_endpoint():
@@ -51,23 +49,17 @@ def query_endpoint():
 
 def inference_loop(messages):
     while True:
-        ####### MODEL STUDIO ##########################
-        response = Generation.call(
+        client = OpenAI(
+            api_key=api_key,
+            base_url=base_url
+        )
+        response = client.chat.completions.create(
             model="qwen-max-latest",
             messages=messages,
-            seed=random.randint(1, 10000),
-            result_format='message'
         )
 
-        if response.status_code != HTTPStatus.OK:
-            error_message = f"Request id: {response.request_id}, Status code: {response.status_code}, " \
-                            f"Error code: {response.code}, Error message: {response.message}"
-            print(error_message)
-            yield json.dumps({'error': 'Model inference failed.', 'details': error_message}) + "\n"
-            break
-
         # Extract the assistant's response
-        assistant_response = response.output.choices[0].message.content
+        assistant_response = response.choices[0].message.content
         print("Assistant Response:", assistant_response)
 
         # Add the assistant's response to the messages list
@@ -387,7 +379,6 @@ def list_directory(path="."):
         return f"Permission denied: {path}"
     except Exception as e:
         return f"Error listing directory: {e}"
-
 
 if __name__ == '__main__':
     app.run(debug=True, port="5001")

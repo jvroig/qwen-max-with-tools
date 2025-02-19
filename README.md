@@ -65,15 +65,11 @@ To get started with this project, follow these steps:
     # On Windows: venv\Scripts\activate
     ```
 
-3. **Install Dependencies**
-
-    pip install -r requirements.txt
-
-4. **Run the Backend API Server**
+3. **Run the Backend API Server**
 
     ```bash
-    python setup.py
-    bash start.sh
+    python setup.py #this will install dependencies and create start.sh file
+    bash start.sh #this will start the API server
     ```
     This will start the Python backend server on http://localhost:5001.
 
