@@ -13,7 +13,7 @@ from dotenv import load_dotenv
 
 
 app = Flask(__name__)
-CORS(app)  # Add this line to enable CORS for all routes
+CORS(app)
 
 # Load API Key
 load_dotenv()

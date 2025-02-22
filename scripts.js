@@ -237,7 +237,7 @@ function appendMessage(sender, message) {
 
     // Add message to chat context
 
-    chat_context.push({ role: sender === 'user' ? 'user' : 'assistant', content: message });
+    chat_context.push({ role: sender === 'assistant' ? 'assistant' : 'user', content: message });
 }
 
 function clearChatHistory() {
