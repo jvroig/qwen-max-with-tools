@@ -38,7 +38,7 @@ def generate_bash_script():
 
     commands.append(f"source {activate_script}")
     commands.append(f"{pip_path} install -r requirements.txt")
-    commands.append(f"{python_path} assist_api.py")
+    commands.append(f"{python_path} qwen_api.py")
 
     return "\n".join(commands)
 
@@ -56,6 +56,7 @@ def main():
     print(bash_script)
     with open('start.sh', 'w') as f:
         f.write(bash_script)
+    print("Setup file written succesfully. You can now run `bash start.sh` !")
 
 if __name__ == "__main__":
     main()
